@@ -35,9 +35,9 @@ int main()
 
     in.read((char*)(&arr[0]), arr.size() * sizeof(int));    
 
-    cout << "큰 값 - " << *max_element(arr.begin(), arr.end()) << endl;
-    cout << "작은 값 - " << *min_element(arr.begin(), arr.end()) << endl;
-
+    auto [maxVal, minVal] = minmax_element(arr.begin(), arr.end());
+    cout << "큰 값 - " << *maxVal << endl;
+    cout << "작은 값 - " << *minVal << endl;
 
     // save("메인.cpp");
 }
