@@ -4,40 +4,53 @@
 // C++에서 template의 역할은 무엇인가? - Generic Programming 구현하는 핵심키워드
 // C++언어의 paradigm
 // 
-// 다음 주 - 많은 수의 자료를 다루기 - FILE I/O - binary I/O
+// 다음 주 - 많은 수의 자료를 다루기 - FILE I/O - binary I/O - class 객체
 //----------------------------------------------
 #include <iostream>
-#include <fstream>
-#include <filesystem> 
+#include <random>
+#include <print>
+#include <string>
 #include <array>
 #include "save.h"
 using namespace std;
 
-array<int, 1000'0000> arr;  // contiguous memory **STL 핵심단어** -> 공간상의 연속
-                            // continuous -> 시간상의 연속
+default_random_engine dre;
+uniform_int_distribution uid{ 0,9999 };
+uniform_int_distribution uidNameLen{ 10, 30 };
+uniform_int_distribution<int> uidChar{ 'a', 'z' };
+
+class Dog {
+public:
+    Dog() {
+        id = uid(dre);
+        int len = uidNameLen(dre);
+        for (int i{}; i < len; ++i) {
+            name += uidChar(dre);
+        }
+    }
+
+private:
+    string name;        // [10, 30] 사의의 소문자로 구성된 이름
+    size_t id;          // [0, 9999]
+
+
+
+    friend ostream& operator<<(ostream& os, const Dog& dog) {
+        print(os, "[{:4}] - {}", dog.id, dog.name);
+        return os;
+    }
+};
 
 //--------
 int main()
 //--------
 {
-    // [문제] 파일 "int천만개"에는 int값 천만개가 저장되어 있다.
-    // 파일은 binary 모드로 열었고 int값은 stream의 write 함수를 사용하여 저장하였다.
-    // 저장된 int값을 모두 메모리에 저장하라.
-    // 저장된 값 중에서 가장 작은 값과 큰 값을 화면에 출력하라.
-
-    // cout << filesystem::file_size("int천만개") / sizeof(int);
-    ifstream in{ "int천만개", ios::binary };
-
-    if (not in) {
-        cout << "파일을 열 수 없습니다." << endl;
-        return 4444;
+    array<Dog, 1000> dogs;
+    for (Dog dog : dogs) {
+        cout << dog << endl;
     }
 
-    in.read((char*)(&arr[0]), arr.size() * sizeof(int));    
-
-    auto [maxVal, minVal] = minmax_element(arr.begin(), arr.end());
-    cout << "큰 값 - " << *maxVal << endl;
-    cout << "작은 값 - " << *minVal << endl;
-
+    // text mode와 binary mode는 교차가 가능
+    // (text mode로 쓰기 후 binary mode로 읽기가 가능)
     // save("메인.cpp");
 }
