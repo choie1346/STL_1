@@ -11,6 +11,7 @@
 #include <print>
 #include <string>
 #include <array>
+#include <fstream>
 #include "save.h"
 using namespace std;
 
@@ -46,9 +47,11 @@ int main()
 //--------
 {
     array<Dog, 1000> dogs;
-    for (Dog dog : dogs) {
-        cout << dog << endl;
-    }
+
+    ofstream out{ "Dog천마리", ios::binary };
+    out.write((char*)dogs.data(), dogs.size() * sizeof(Dog));   // 40KB
+
+    // [문제] 
 
     // text mode와 binary mode는 교차가 가능
     // (text mode로 쓰기 후 binary mode로 읽기가 가능)
