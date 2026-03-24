@@ -1,13 +1,9 @@
 //----------------------------------------------
 // 2026 1학기 STL 월56 화 78      2026.03.10(화)
 //----------------------------------------------
-// C++에서 template의 역할은 무엇인가? - Generic Programming 구현하는 핵심키워드
-// C++언어의 paradigm
 // 
-// 다음 주 - 많은 수의 자료를 다루기 - FILE I/O - binary I/O - class 객체
 //----------------------------------------------
 #include <iostream>
-#include <random>
 #include <print>
 #include <string>
 #include <array>
@@ -15,20 +11,7 @@
 #include "save.h"
 using namespace std;
 
-default_random_engine dre;
-uniform_int_distribution uid{ 0,9999 };
-uniform_int_distribution uidNameLen{ 10, 30 };
-uniform_int_distribution<int> uidChar{ 'a', 'z' };
-
 class Dog {
-public:
-    Dog() {
-        id = uid(dre);
-        int len = uidNameLen(dre);
-        for (int i{}; i < len; ++i) {
-            name += uidChar(dre);
-        }
-    }
 
 private:
     string name;        // [10, 30] 사의의 소문자로 구성된 이름
@@ -40,19 +23,44 @@ private:
         print(os, "[{:4}] - {}", dog.id, dog.name);
         return os;
     }
+
+    friend istream& operator>>(istream& is, Dog& dog) {
+        is.read((char*)&dog, sizeof(Dog));
+        return is;
+    }
 };
+
+
+// SSO(Small String Optimization) - 성능 최적화를 위해 짧은 문자열을 free-store가 아닌 stack에 저장하는 것
+
+
+// [문제] 파일 "Dog천마리"에는 class Dog객체 1000개가 저장되어 있다.
+// 파일은 binary mode이고 각 객체는 메모리 크기 그대로 stream의 write함수로 기록하였다.
+// 모든 객체를 한번의 write함수를 사용하여 기록하였다.
+// Dog의 멤버는 위의 코드와 같다.
+// 메모리에 모두 읽어오시오.
+// 메모리에 읽은 Dog를 화면에 모두 출력하라.
 
 //--------
 int main()
 //--------
 {
+    ifstream in{ "Dog천마리", ios::binary };
+    if (not in) {
+        cout << "파일을 열 수 없습니다." << endl;
+        return 4444;
+    }
+
     array<Dog, 1000> dogs;
 
-    ofstream out{ "Dog천마리", ios::binary };
-    out.write((char*)dogs.data(), dogs.size() * sizeof(Dog));   // 40KB
+    in.read((char*)dogs.data(), dogs.size() * sizeof(Dog));
 
-    // [문제] 
+    for (const Dog& dog : dogs)
+        cout << dog << endl;
+    // 이렇게 하면 SSO때문에 복사가 제대로 안 됨.
 
+
+    
     // text mode와 binary mode는 교차가 가능
     // (text mode로 쓰기 후 binary mode로 읽기가 가능)
     // save("메인.cpp");
