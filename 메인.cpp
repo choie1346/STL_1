@@ -1,12 +1,7 @@
 //----------------------------------------------
 // 2026 1학기 STL 월56 화 78      2026.03.10(화)
 //----------------------------------------------
-// 동적 메모리 할당(Dynamic memory allocation)
-// Memory Allocation
-// 정적(Static) - Program 할 때 사용할 메모리를 결정할 수 있는 경우    Compile-time
-// 동적(Dynamic) - 실행한 이후에 결정되는 메모리(크기, 주소가 결정됨)   Run-time
-// 동적은 실행 이후에 결정되기 때문에 이름을 지어줄 수 없음.
-// 이름은 곧 주소다.
+// 스마트 포인터 -> 콜러블 타입 -> 실습 -> STL
 //----------------------------------------------
 #include <iostream>
 #include <numeric>
@@ -21,7 +16,10 @@ using namespace std;
 int main()
 //--------
 {
-    int* p;
+    // int* p; -> 사용금지
+    // C++11(Modern C++)에 완벽한 대체수단이 있다 -> smart_point
+
+    unique_ptr<int[]> p;
 
     while (true) {
         size_t num;
@@ -29,7 +27,7 @@ int main()
         cin >> num;
         
         try {
-            p = new int[num];
+            p.reset( new int[num] );
         }
         catch (std::exception& e) {
             cout << "메모리가 고갈 - " << e.what() << endl;
@@ -38,7 +36,7 @@ int main()
         // 메모리를 다 쓰면 -> 페이징함.
         // 최근에 가장 안 쓴 메모리를 하드디스크에 저장하고 메모리를 줌.
 
-        iota(p, p + num, 1);    // p위치부터 p+num위치까지 1부터 채우기
+        iota(p.get(), p.get() + num, 1);    // p위치부터 p+num위치까지 1부터 채우기
 
         //long long sum{};
         //for (int i{}; i < num; ++i) {
@@ -46,12 +44,12 @@ int main()
         //    sum += p[i];
         //}
 
-        long long sum = accumulate(p, p + num, 0LL); // static_cast<long long>(0)
+        long long sum = accumulate(p.get(), p.get() + num, 0LL); // static_cast<long long>(0)
         // 시작위치, 마지막 위치, 시작할 값
 
         cout << sum << endl;
 
-        delete[] p;
+        // delete[] p; -> 이거 안 해도 됨
     }
 
     // free - C
