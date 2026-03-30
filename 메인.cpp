@@ -13,11 +13,6 @@ using namespace std;
 // transform(메인.cpp, 메인대문자.cpp, 소문자를 대문자로);
 // transform(뭐를, 뭘로, 어떻게);
 
-char 소투대(char c) 
-{
-    return c = toupper(c);
-}
-
 //--------
 int main()
 //--------
@@ -27,10 +22,8 @@ int main()
 
     ofstream out{ "메인대문자.cpp" };
 
-    // transform(뭐를, 뭘로, 어떻게);
-    // transform(메인시작, 메인끝, 메인대문자시작위치로, 함수의시작번지);
     transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out},
-        소투대);
+        [](char c) {return c = toupper(c); });
 
 
     // save("메인.cpp");
