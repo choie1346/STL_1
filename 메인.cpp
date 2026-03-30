@@ -1,46 +1,36 @@
 //----------------------------------------------
 // 2026 1학기 STL 월56 화 78      2026.03.30(월)
 //----------------------------------------------
-// 스마트 포인터 -> 콜러블 타입 -> 실습 -> STL
+// collable types -> 실습 -> STL
 //----------------------------------------------
 #include <iostream>
-#include <memory>
+#include <fstream>
+#include <algorithm>
 #include "save.h"
 using namespace std;
 
-// C++의 보증사항
-// 프로그램이 정상 종료 시(return문, exit과는 다름) 
-// STACK에 만들어진 지역 객체가 반드시 소멸됨을 보증한다. 
-// stack-unwinding
+// [문제] "메인.cpp"의 소문자를 모두 대문자로 바꾼 "메인대문자.cpp"를 만들어라.
+// transform(메인.cpp, 메인대문자.cpp, 소문자를 대문자로);
+// transform(뭐를, 뭘로, 어떻게);
 
-
-class Dog {
-public:
-    Dog() { cout << "생성" << endl; }
-    ~Dog() { cout << "소멸" << endl; }
-};
-
-class 스마트포인터 {
-public:
-    스마트포인터(Dog* p) : p{ p } {}
-    ~스마트포인터() { delete p; }
-private:
-    Dog* p;
-};
-
+char 소투대(char c) 
+{
+    return c = toupper(c);
+}
 
 //--------
 int main()
 //--------
 {
-    // T* 는 raw-pointer이다. 앞으로 쓰지 말자.
+    ifstream in{ "메인.cpp" };
+    if (not in) return 1;
 
-    // unique_ptr<Dog> p{ new Dog };  // RAII
-    스마트포인터 p{ new Dog };
+    ofstream out{ "메인대문자.cpp" };
 
-    return 0;
-
-    cout << "이 문장은 출력되지 않음" << endl;
+    // transform(뭐를, 뭘로, 어떻게);
+    // transform(메인시작, 메인끝, 메인대문자시작위치로, 함수의시작번지);
+    transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out},
+        소투대);
 
 
     // save("메인.cpp");
