@@ -1,58 +1,47 @@
 //----------------------------------------------
-// 2026 1학기 STL 월56 화 78      2026.03.10(화)
+// 2026 1학기 STL 월56 화 78      2026.03.30(월)
 //----------------------------------------------
 // 스마트 포인터 -> 콜러블 타입 -> 실습 -> STL
 //----------------------------------------------
 #include <iostream>
-#include <numeric>
+#include <memory>
 #include "save.h"
 using namespace std;
 
-// [문제] 사용자가 입력한 수만큼 int를 저장할 메모리를 확보하라.
-// 1부터 시작하는 정수로 메모리를 채워라
-// 합계를 화면에 출력하시오
+// C++의 보증사항
+// 프로그램이 정상 종료 시(return문, exit과는 다름) 
+// STACK에 만들어진 지역 객체가 반드시 소멸됨을 보증한다. 
+// stack-unwinding
+
+
+class Dog {
+public:
+    Dog() { cout << "생성" << endl; }
+    ~Dog() { cout << "소멸" << endl; }
+};
+
+class 스마트포인터 {
+public:
+    스마트포인터(Dog* p) : p{ p } {}
+    ~스마트포인터() { delete p; }
+private:
+    Dog* p;
+};
+
 
 //--------
 int main()
 //--------
 {
-    // int* p; -> 사용금지
-    // C++11(Modern C++)에 완벽한 대체수단이 있다 -> smart_point
+    // T* 는 raw-pointer이다. 앞으로 쓰지 말자.
 
-    unique_ptr<int[]> p;
+    // unique_ptr<Dog> p{ new Dog };  // RAII
+    스마트포인터 p{ new Dog };
 
-    while (true) {
-        size_t num;
-        cout << "입력 - ";
-        cin >> num;
-        
-        try {
-            p.reset( new int[num] );
-        }
-        catch (std::exception& e) {
-            cout << "메모리가 고갈 - " << e.what() << endl;
-        }
-        // 메모리 관리자에서 num만큼의 크기를 요청함.
-        // 메모리를 다 쓰면 -> 페이징함.
-        // 최근에 가장 안 쓴 메모리를 하드디스크에 저장하고 메모리를 줌.
+    return 0;
 
-        iota(p.get(), p.get() + num, 1);    // p위치부터 p+num위치까지 1부터 채우기
+    cout << "이 문장은 출력되지 않음" << endl;
 
-        //long long sum{};
-        //for (int i{}; i < num; ++i) {
-        //    p[i] = i + 1;
-        //    sum += p[i];
-        //}
 
-        long long sum = accumulate(p.get(), p.get() + num, 0LL); // static_cast<long long>(0)
-        // 시작위치, 마지막 위치, 시작할 값
-
-        cout << sum << endl;
-
-        // delete[] p; -> 이거 안 해도 됨
-    }
-
-    // free - C
-    
     // save("메인.cpp");
 }
