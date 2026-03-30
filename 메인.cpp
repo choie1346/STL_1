@@ -4,26 +4,47 @@
 // collable types -> 실습 -> STL
 //----------------------------------------------
 #include <iostream>
-#include <fstream>
-#include <algorithm>
+#include <random>
+#include <array>
+#include <print>
+#include <ranges>
 #include "save.h"
 using namespace std;
 
-// [문제] "메인.cpp"의 소문자를 모두 대문자로 바꾼 "메인대문자.cpp"를 만들어라.
-// transform(메인.cpp, 메인대문자.cpp, 소문자를 대문자로);
-// transform(뭐를, 뭘로, 어떻게);
+// [문제] 랜덤값을 갖는 int 1000만개를 메모리에 저장하라.
+// qsort를 이용하여 오름차순 정렬하시오.
+// 정렬 결과를 앞에서부터 1000개만 화면에 출력하라.
+
+default_random_engine dre;
+uniform_int_distribution uid{ 0, 999'9999 };
+
+array<int, 1000'0000> a;
+
+int 오름차순(const void* a, const void* b)
+{
+    // 바꿔야되면 1, 아니면 -1, 같으면 0
+    return *(int*)a - *(int*)b;
+}
 
 //--------
 int main()
 //--------
 {
-    ifstream in{ "메인.cpp" };
-    if (not in) return 1;
+    for (int& num : a)
+        num = uid(dre);
 
-    ofstream out{ "메인대문자.cpp" };
+    // 시간 측정 시작
+    qsort(a.data(), a.size(), sizeof(array<int, 1000'0000>::value_type), 오름차순);
+    // 시간 측정 끝
 
-    transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out},
-        [](char c) {return c = toupper(c); });
+    cout << "정렬 후 출력" << endl;
+    //for (int i{}; i < 1000; ++i)
+    //    print("{:8}", a[i]);
+    // 이렇게 하지 말어라
+
+    for(int num : a | views::reverse        // 반대로 출력
+                    | views::take(1000))    // 앞에서부터 1000개
+        print("{:8}", num);
 
 
     // save("메인.cpp");
