@@ -8,6 +8,7 @@
 #include <array>
 #include <print>
 #include <ranges>
+#include <chrono>
 #include "save.h"
 using namespace std;
 
@@ -34,17 +35,13 @@ int main()
         num = uid(dre);
 
     // 시간 측정 시작
+    auto start = chrono::high_resolution_clock::now();  // ns
     qsort(a.data(), a.size(), sizeof(array<int, 1000'0000>::value_type), 오름차순);
+    auto stop = chrono::high_resolution_clock::now();
     // 시간 측정 끝
-
-    cout << "정렬 후 출력" << endl;
-    //for (int i{}; i < 1000; ++i)
-    //    print("{:8}", a[i]);
-    // 이렇게 하지 말어라
-
-    for(int num : a | views::reverse        // 반대로 출력
-                    | views::take(1000))    // 앞에서부터 1000개
-        print("{:8}", num);
+    
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
+    cout << "걸린 시간 - " << duration << endl;
 
 
     // save("메인.cpp");
