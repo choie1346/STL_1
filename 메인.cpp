@@ -5,6 +5,7 @@
 //----------------------------------------------
 #include <iostream>
 #include <random>
+#include <algorithm>
 #include <array>
 #include <print>
 #include <ranges>
@@ -27,21 +28,48 @@ int 오름차순(const void* a, const void* b)
     return *(int*)a - *(int*)b;
 }
 
+bool sort용오름차순(int a, int b)
+{
+    // 1이면 그대로, 아니면 바꿈
+    return a < b;
+
+    // a와 b가 똑같다는 판정하는 법
+    // a < b가 false, b < a도 false면 같은 값이다.
+}
+
 //--------
 int main()
 //--------
 {
-    for (int& num : a)
-        num = uid(dre);
+    {
+        for (int& num : a)
+            num = uid(dre);
 
-    // 시간 측정 시작
-    auto start = chrono::high_resolution_clock::now();  // ns
-    qsort(a.data(), a.size(), sizeof(array<int, 1000'0000>::value_type), 오름차순);
-    auto stop = chrono::high_resolution_clock::now();
-    // 시간 측정 끝
-    
-    auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
-    cout << "걸린 시간 - " << duration << endl;
+        // 시간 측정 시작
+        auto start = chrono::high_resolution_clock::now();  // ns
+        qsort(a.data(), a.size(), sizeof(array<int, 1000'0000>::value_type), 오름차순);
+        auto stop = chrono::high_resolution_clock::now();
+        // 시간 측정 끝
+
+        auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
+        cout << "qsort걸린 시간 - " << duration << endl;
+    }
+
+    {
+        for (int& num : a)
+            num = uid(dre);
+
+        // 시간 측정 시작
+        auto start = chrono::high_resolution_clock::now();  // ns
+        sort(a.begin(), a.end(), [](int a, int b) {
+            return a < b;
+            });
+        auto stop = chrono::high_resolution_clock::now();
+        // 시간 측정 끝
+
+        auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
+        cout << "sort걸린 시간 - " << duration << endl;
+    }
 
 
     // save("메인.cpp");
