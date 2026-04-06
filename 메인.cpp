@@ -36,8 +36,12 @@ public:
         return id;
     }
 
-    int getLen() {
-        return name.length();
+    string getName() const {
+        return name;
+    }
+
+    string& getName() {
+        return name;
     }
 
 private:
@@ -52,7 +56,7 @@ private:
 
 
 // [문제] Dog객체 10만개를 메모리에 저장하라.
-// name 길이 기준 오름차순으로 sort를 사용하여 정렬하라.
+// name 기준 오름차순으로 sort를 사용하여 정렬하라.
 // 필요하다면 Dog에 interface 멤버를 추가하라.
 // 앞에서부터 1000개의 내용을 cout으로 출력하라.
 
@@ -62,11 +66,10 @@ array<Dog, 10'0000> dogs;
 int main()
 //--------
 {
-    sort(dogs.begin(), dogs.end(), [](Dog a, Dog b) {
-        return a.getLen() < b.getLen();
-        });
-
-    // 교수님은 getName으로 하심
+    for (Dog& dog : dogs) {
+        string& name = dog.getName();
+        sort(name.begin(), name.end());
+    }
 
     for (auto dog : dogs | views::take(1000))
         cout << dog << endl;
