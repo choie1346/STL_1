@@ -7,55 +7,70 @@
 // 다음 주 - 많은 수의 자료를 다루기
 //----------------------------------------------
 #include <iostream>
-#include <array>
 #include <algorithm>
-#include <functional>
+#include <random>
+#include <string>
+#include <print>
+#include <array>
+#include <ranges>
 #include "save.h"
 using namespace std;
 
-bool 정렬기준(int a, int b)
-{
-    cout << "함수 ";      // 10 * (3~4) = 30~40회 호출됨
-    return a < b; // 오름차순
-    // return a > b; // 내림차순
-}
+default_random_engine dre;
+uniform_int_distribution uid(0, 999'999);
+uniform_int_distribution uidNameLen(1, 150);
+uniform_int_distribution<> uidChar('!', '~');   // printable characters
+
 
 class Dog {
 public:
-    bool operator()(int a, int b) {
-        cout << "도그 ";
-        return a < b;
+    Dog() {
+		id = uid(dre);
+
+		int Len = uidNameLen(dre);
+        for (int i = 0; i < Len; ++i)
+            name += uidChar(dre);
     }
+
+    int getID() {
+        return id;
+    }
+
+private:
+    string name;    // [1, 150]
+    int id;         // [0, 999'999]
+
+    friend ostream& operator<<(ostream& os, const Dog& dog) {
+        print(os, "[{:7}] - {}", dog.id, dog.name);
+        return os;
+	}
 };
+
+
+// [문제] Dog객체 10만개를 메모리에 저장하라.
+// id 기준 오름차순으로 sort를 사용하여 정렬하라.
+// 필요하다면 Dog에 interface 멤버를 추가하라.
+// 앞에서부터 1000개의 내용을 cout으로 출력하라.
+
+array<Dog, 10'0000> dogs;
 
 //--------
 int main()
 //--------
 {
-    array<int, 10> a{ 8,4,2,0,1,9,7,5,6,3 };
+    cout << "정렬시작" << endl;
+    sort(dogs.begin(), dogs.end(), [](Dog a, Dog b) {
+        return a.getID() < b.getID();
+        });
+    cout << "정렬 끝" << endl;
 
-    // 
-    function<bool(int, int)> f;
+    // c++20의 sort
+    // ranges::sort(dogs, {}, &Dog::getID);
+    // 알고리즘은 똑같음, 쓰는 방식의 차이
 
-    f = 정렬기준;
-    f = [](int a, int b) {
-        cout << "람다 ";
-        return a < b;
-		};
-    f = Dog{};
+    for (auto dog : dogs | views::take(1000))
+        cout << dog.getID() << endl;
+    
 
-	sort(a.begin(), a.end(), f);
-
-    //sort(a.begin(), a.end(), [](int a, int b) /*-> bool (리턴값)*/ {
-    //   cout << "람다 ";
-    //   return a < b;
-    //   });
-
-    //sort(a.begin(), a.end(), 정렬기준);
-    //sort(a.begin(), a.end(), Dog{});
-
-    for (int num : a)
-        cout << num << ' ';
-
-    save("메인.cpp");
+    // save("메인.cpp");
 }

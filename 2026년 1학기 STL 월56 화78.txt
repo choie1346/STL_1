@@ -120,3 +120,65 @@ int main()
 
     save("메인.cpp");
 }
+
+==================================================
+저장한 시간 - 2026-04-06 14:13:52.4356636
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78      2026.03.10(화)
+//----------------------------------------------
+// C++에서 template의 역할은 무엇인가? - Generic Programming 구현하는 핵심키워드
+// C++언어의 paradigm
+// 
+// 다음 주 - 많은 수의 자료를 다루기
+//----------------------------------------------
+#include <iostream>
+#include <random>
+#include <string>
+#include <print>
+#include "save.h"
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution uid(0, 999'999);
+uniform_int_distribution uidNameLen(1, 150);
+uniform_int_distribution<> uidChar('!', '~');   // printable characters
+
+
+class Dog {
+public:
+    Dog() {
+		id = uid(dre);
+
+		int Len = uidNameLen(dre);
+        for (int i = 0; i < Len; ++i)
+            name += uidChar(dre);
+    }
+
+
+private:
+    string name;    // [1, 150]
+    int id;         // [0, 999'999]
+
+    friend ostream& operator<<(ostream& os, const Dog& dog) {
+        print(os, "[{:7}] - {}", dog.id, dog.name);
+        return os;
+	}
+};
+
+
+// [문제] 
+
+//--------
+int main()
+//--------
+{
+    for (int i = 0; i < 10; ++i) {
+        cout << Dog{} << endl;
+    }
+
+    
+
+    save("메인.cpp");
+}
