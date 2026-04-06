@@ -55,10 +55,10 @@ private:
 };
 
 
-// [문제] Dog객체 10만개를 메모리에 저장하라.
-// name 기준 오름차순으로 sort를 사용하여 정렬하라.
-// 필요하다면 Dog에 interface 멤버를 추가하라.
-// 앞에서부터 1000개의 내용을 cout으로 출력하라.
+// [문제] 다운받은 "Dog 십만마리"에는 class Dog 객체 십만개가 저장되어 있다.
+// 바이너리 모드로 저장하여 정확하게 4MB이다.
+// 메모리로 모두 읽어와라.
+// 앞에서 100개 출력하여 확인하라.
 
 array<Dog, 10'0000> dogs;
 
@@ -66,13 +66,7 @@ array<Dog, 10'0000> dogs;
 int main()
 //--------
 {
-    for (Dog& dog : dogs) {
-        string& name = dog.getName();
-        sort(name.begin(), name.end());
-    }
-
-    for (auto dog : dogs | views::take(1000))
-        cout << dog << endl;
+    
     
 
     // save("메인.cpp");
