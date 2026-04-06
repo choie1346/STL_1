@@ -36,6 +36,10 @@ public:
         return id;
     }
 
+    int getLen() {
+        return name.length();
+    }
+
 private:
     string name;    // [1, 150]
     int id;         // [0, 999'999]
@@ -48,7 +52,7 @@ private:
 
 
 // [문제] Dog객체 10만개를 메모리에 저장하라.
-// id 기준 오름차순으로 sort를 사용하여 정렬하라.
+// name 길이 기준 오름차순으로 sort를 사용하여 정렬하라.
 // 필요하다면 Dog에 interface 멤버를 추가하라.
 // 앞에서부터 1000개의 내용을 cout으로 출력하라.
 
@@ -58,18 +62,14 @@ array<Dog, 10'0000> dogs;
 int main()
 //--------
 {
-    cout << "정렬시작" << endl;
     sort(dogs.begin(), dogs.end(), [](Dog a, Dog b) {
-        return a.getID() < b.getID();
+        return a.getLen() < b.getLen();
         });
-    cout << "정렬 끝" << endl;
 
-    // c++20의 sort
-    // ranges::sort(dogs, {}, &Dog::getID);
-    // 알고리즘은 똑같음, 쓰는 방식의 차이
+    // 교수님은 getName으로 하심
 
     for (auto dog : dogs | views::take(1000))
-        cout << dog.getID() << endl;
+        cout << dog << endl;
     
 
     // save("메인.cpp");
