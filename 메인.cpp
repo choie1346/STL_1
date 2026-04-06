@@ -1,45 +1,61 @@
 //----------------------------------------------
-// 2026 1학기 STL 월56 화 78      2026.03.30(월)
+// 2026 1학기 STL 월56 화 78      2026.03.10(화)
 //----------------------------------------------
-// collable types -> 실습 -> STL
-// 호출가능 타입 - collable types
-// 1. 함수
-//  - 함수 포인터도 호출 가능하다
-// 2. lambda
-// 3. () 연산자를 구현한 클래스 - 객체를 functor(함수객체)라 함.
-// 4. 멤버함수와 멤버함수 포인터
+// C++에서 template의 역할은 무엇인가? - Generic Programming 구현하는 핵심키워드
+// C++언어의 paradigm
 // 
-// --> functinon 클래스로 일관된 사용가능
+// 다음 주 - 많은 수의 자료를 다루기
 //----------------------------------------------
 #include <iostream>
+#include <array>
+#include <algorithm>
+#include <functional>
 #include "save.h"
 using namespace std;
 
+bool 정렬기준(int a, int b)
+{
+    cout << "함수 ";      // 10 * (3~4) = 30~40회 호출됨
+    return a < b; // 오름차순
+    // return a > b; // 내림차순
+}
 
+class Dog {
+public:
+    bool operator()(int a, int b) {
+        cout << "도그 ";
+        return a < b;
+    }
+};
 
 //--------
 int main()
 //--------
 {
-    class Sakura {
-    public:
-        void operator()() {
-            cout << "안녕 난 람다야" << endl;
-        };
-    };
-    // 람다의 타입
-    // class `int __cdecl main(void)'::`2'::<lambda_1>
+    array<int, 10> a{ 8,4,2,0,1,9,7,5,6,3 };
 
-    Sakura a;
-    a();
+    // 
+    function<bool(int, int)> f;
 
-    cout << typeid(a).name() << endl;
-    // class를 지역에 정의했을 때 a의 타입
-    // class `int __cdecl main(void)'::`2'::Sakura
+    f = 정렬기준;
+    f = [](int a, int b) {
+        cout << "람다 ";
+        return a < b;
+		};
+    f = Dog{};
 
+	sort(a.begin(), a.end(), f);
 
-    // class를 전역에 정의했을 때 a의 타입
-    // class Sakura
+    //sort(a.begin(), a.end(), [](int a, int b) /*-> bool (리턴값)*/ {
+    //   cout << "람다 ";
+    //   return a < b;
+    //   });
 
-    // save("메인.cpp");
+    //sort(a.begin(), a.end(), 정렬기준);
+    //sort(a.begin(), a.end(), Dog{});
+
+    for (int num : a)
+        cout << num << ' ';
+
+    save("메인.cpp");
 }
