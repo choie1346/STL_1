@@ -16,7 +16,7 @@ using namespace std;
 
 default_random_engine dre;
 uniform_int_distribution uid(0, 999'999);
-uniform_int_distribution uidNameLen(1, 16);
+uniform_int_distribution uidNameLen(1, 15);
 uniform_int_distribution<> uidChar('!', '~');   // printable characters
 
 
@@ -64,8 +64,8 @@ array<Dog, 10'0000> dogs;
 int main()
 //--------
 {
-    //ofstream out{ "Dog 십만마리", ios::binary };
-    //out.write((char*)dogs.data(), dogs.size() * sizeof(Dog));
+    ofstream out{ "Dog 십만마리", ios::binary };
+    out.write((char*)dogs.data(), dogs.size() * sizeof(Dog));
 
     ifstream in{ "Dog 십만마리", ios::binary };
     if (not in) return 4444;
