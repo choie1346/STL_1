@@ -1,10 +1,7 @@
 //----------------------------------------------
 // 2026 1학기 STL 월56 화 78      2026.03.10(화)
 //----------------------------------------------
-// C++에서 template의 역할은 무엇인가? - Generic Programming 구현하는 핵심키워드
-// C++언어의 paradigm
-// 
-// 다음 주 - 많은 수의 자료를 다루기
+// STL 컨테이너 - std::String과 유사한 ZString을 만들어서 컨테이너의 본질에 접근
 //----------------------------------------------
 #include <iostream>
 #include <algorithm>
@@ -13,12 +10,13 @@
 #include <print>
 #include <array>
 #include <ranges>
+#include <fstream>
 #include "save.h"
 using namespace std;
 
 default_random_engine dre;
 uniform_int_distribution uid(0, 999'999);
-uniform_int_distribution uidNameLen(1, 150);
+uniform_int_distribution uidNameLen(1, 16);
 uniform_int_distribution<> uidChar('!', '~');   // printable characters
 
 
@@ -45,7 +43,7 @@ public:
     }
 
 private:
-    string name;    // [1, 150]
+    string name;    // [1, 16]
     int id;         // [0, 999'999]
 
     friend ostream& operator<<(ostream& os, const Dog& dog) {
@@ -66,8 +64,18 @@ array<Dog, 10'0000> dogs;
 int main()
 //--------
 {
-    
-    
+    //ofstream out{ "Dog 십만마리", ios::binary };
+    //out.write((char*)dogs.data(), dogs.size() * sizeof(Dog));
 
+    ifstream in{ "Dog 십만마리", ios::binary };
+    if (not in) return 4444;
+
+    in.read((char*)dogs.data(), dogs.size() * sizeof(Dog));
+
+    for (int i = 0; i < 100; ++i)
+        cout << dogs[i] << endl;
+
+    //for (const Dog& dog : dogs)
+    //    cout << dog << endl;
     // save("메인.cpp");
 }
