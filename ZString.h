@@ -20,9 +20,15 @@ public:
 	ZString(const ZString&);
 	ZString& operator=(const ZString&);
 
+	// 이동 - C++11부터 지원되는 move semantics
+	ZString(ZString&&);		// && - rvalue reference
+	ZString& operator=(ZString&&);
 
-	// 이동
-	
+	// 연산자 오버로딩
+	// 인터페이스 함수
+	size_t getLen() const;
+
+
 	void special(std::string) const;
 	
 	friend std::ostream& operator<<(std::ostream& os, const ZString& zs);

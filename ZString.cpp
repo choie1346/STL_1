@@ -63,6 +63,41 @@ ZString& ZString::operator=(const ZString& other)
 	return *this;
 }
 
+// 이동생성과 이동할당연산자
+ZString::ZString(ZString&& other)
+	: id {++gid}
+{
+	len = other.len;
+	p.reset(other.p.release());	// other가 가지고 있던 memory를 p로 가져옴, other는 해제
+
+	other.len = 0;				
+	// 자기 자원이 이동된 other는 xvalue가 되고 이것을 사용하면 undefined behavior
+
+	if (관찰)
+		special("이동생성");
+}
+
+ZString& ZString::operator=(ZString&& other)
+{
+	if (this == &other)
+		return *this;
+
+	len = other.len;
+	// 메모리 잘 반환 되었는지 주의.
+	p.reset(other.p.release());
+	other.len = 0;
+
+	if (관찰)
+		special("이동할당");
+
+	return *this;
+}
+
+
+size_t ZString::getLen() const
+{
+	return len;
+}
 
 void ZString::special(std::string 동작) const
 {
