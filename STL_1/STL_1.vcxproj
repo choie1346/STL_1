@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\save.cpp" />
+    <ClCompile Include="..\ZString.cpp" />
     <ClCompile Include="..\메인.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\save.h" />
+    <ClInclude Include="..\ZString.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="그림.bmp" />
