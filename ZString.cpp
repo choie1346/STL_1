@@ -122,3 +122,17 @@ std::ostream& operator<<(std::ostream& os, const ZString& zs)
 		os << *(zs.p.get() + i);
 	return os;
 }
+
+std::istream& operator>>(std::istream& is, ZString& zs)
+{
+	// 내일 그림 설명으로 시작~
+
+	std::string s;
+	is >> s;
+	zs.len = s.size();
+	zs.p.reset();
+	zs.p = std::make_unique<char[]>(s.size());
+	memcpy(zs.p.get(), s.data(), zs.len);
+
+	return is;
+}

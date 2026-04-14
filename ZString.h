@@ -32,6 +32,9 @@ public:
 	void special(std::string) const;
 	
 	friend std::ostream& operator<<(std::ostream& os, const ZString& zs);
+	
+	// 파일에서 읽어오려고 만듦 - 20260413
+	friend std::istream& operator>>(std::istream& is, ZString& zs);
 
 	
 private:
