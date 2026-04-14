@@ -7,7 +7,7 @@
 // object - 메모리를 차지하는 객체(instancing)
 //----------------------------------------------
 #include <iostream>
-#include <fstream>
+#include <array>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -19,21 +19,22 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    // [문제] "메인.cpp"에 있는 모든 단어를 ZString 객체로 읽어와라.
-    // 이 문제에서 단어란 공백으로 분리된 문자집합이다.
-    // 다음 문장이 문제없이 실행되도록 하자.
 
-    ifstream in{ "메인.cpp" };
-    if (not in) {
-        cout << "파일을 열 수 없습니다." << endl;
-        return 4444;
-    }
+    array<ZString, 5> a{ "1", "22", "333", "4444", "55555"};
+    관찰 = true;
+    a.fill("2026년 4월 14일");
+    // 임시 객체를 하나 생성해 복사할당함.
+    관찰 = false;
 
-    ZString s;
-    while (in >> s) {
+    for (const ZString& s : a)
         cout << s << endl;
-    }
+
+    cout << "원소 수 - " << a.size() << endl;;
+    cout << "비었니 - " << boolalpha << a.empty() << endl;
+    cout << "최대 수 - " << a.max_size() << endl;
+
     
+
 
     // save("메인.cpp");
 }
