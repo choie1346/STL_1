@@ -3,8 +3,9 @@
 // 중간고사 4월 21일(화)
 //----------------------------------------------
 // STL 컨테이너 - Containers are objects that store other objects.
-// Containers - 자료구조
-// object - 메모리를 차지하는 객체(instancing)
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
 //----------------------------------------------
 #include <iostream>
 #include <array>

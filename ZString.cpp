@@ -64,7 +64,7 @@ ZString& ZString::operator=(const ZString& other)
 }
 
 // 이동생성과 이동할당연산자
-ZString::ZString(ZString&& other)
+ZString::ZString(ZString&& other) noexcept
 	: id {++gid}
 {
 	len = other.len;
@@ -77,7 +77,7 @@ ZString::ZString(ZString&& other)
 		special("이동생성");
 }
 
-ZString& ZString::operator=(ZString&& other)
+ZString& ZString::operator=(ZString&& other) noexcept
 {
 	if (this == &other)
 		return *this;

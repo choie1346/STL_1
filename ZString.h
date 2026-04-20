@@ -21,8 +21,14 @@ public:
 	ZString& operator=(const ZString&);
 
 	// 이동 - C++11부터 지원되는 move semantics
-	ZString(ZString&&);		// && - rvalue reference
-	ZString& operator=(ZString&&);
+	ZString(ZString&&) noexcept;		// 2026. 4. 20 - move에서 예외를 던지지 않는다.
+	ZString& operator=(ZString&&) noexcept;
+	// move에서 예외를 던지면 컴파일러는 move대신 copy를 사용하게 됨.
+	// 원본이 망가지고 복구가 불가하기 떄문.
+	// copy는 속도가 느림.
+	// noexcept -> 예외를 던지면 프로그램을 종료.
+
+
 
 	// 연산자 오버로딩
 	// 인터페이스 함수 - 나중에 삭제 예성
@@ -33,6 +39,7 @@ public:
 
 
 	void special(std::string) const;
+
 	void show() const;
 	
 	friend std::ostream& operator<<(std::ostream& os, const ZString& zs);
