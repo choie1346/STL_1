@@ -8,7 +8,10 @@
 // - vector<T> - Dynamic (size) Array - free-store에 data관리
 //----------------------------------------------
 #include <iostream>
-#include <array>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <algorithm>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -20,28 +23,23 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
+    vector<ZString> v;
+    
+    // [문제] "메인.cpp"에 있는 모든 문자를 v에 저장하라.
+    // vector로 파일 읽어오기 시험문제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ifstream in{ "메인.cpp" };
+    if (not in) return 0;
+    
+    ZString zs;
+    while (in >> zs)
+        v.push_back(zs);
 
-    array<int, 5> a{ 1, 2, 3, 4, 5};
-    
-    
-    // element access - at, operator[], front, back, data
-    
-    // at() - 경계를 검사하고 싶으면 이 함수를 사용하면 된다.
-    // C++은 속도를 최우선으로 하는 언어이다.
-    // 시간 걸리는 at()을 다른 함수로 제공하는 이유이다.
-    // at()은 예외를 던진다.
-    while (true) {
-        cout << "찾을 원소는? : ";
-        int num;
-        cin >> num;
-        
-        try {
-            cout << a.at(num) << endl;
-        }
-        catch (exception& e) {
-            cout << e.what() << endl;       // 표준예외를 출력한다.
-        }
-    }
-    
+    sort(v.begin(), v.end(), [](const ZString& a, const ZString& b) {
+            return a.size() < b.size();
+        });
+
+    for (const ZString& zs : v)
+        cout << zs << endl;
+
     save("메인.cpp");
 }
