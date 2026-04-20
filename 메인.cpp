@@ -26,13 +26,25 @@ int main()
     // array<ZString, 5>::iterator i = a.begin();
     auto i = a.begin(); // 위 코드와 같은 코드
 
+
     for (auto i = a.begin(); i != a.end(); ++i)
         cout << (*i) << endl;
     
     
     // element access - at, operator[], front, back, data
+    관찰 = true;
+    // 4개 다 동일한 결과가 출력됨. - 첫원소에 access
+    a.begin()->show();
+    a[0].show();
+    a.front().show();   // a의 첫원소
+    a.data()->show();   // a의 시작주소의 값을 show
 
-    
+    // 마지막 원소에 access
+    (a.end() - 1)->show();
+    a[a.size()-1].show();
+    a.back().show();
+    (a.data() + a.size() - 1)->show();
+    관찰 = false;
     
     save("메인.cpp");
 }
