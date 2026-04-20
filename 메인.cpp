@@ -10,7 +10,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <fstream>
 #include <algorithm>
 #include "save.h"
 #include "ZString.h"
@@ -23,15 +22,22 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    vector<int> v{ 1,2,3,4,5 }; // free-store
+    // [문제] 키보드에서 입력한 모든 단어를 저장하라.
+    // 입력의 끝은 OS마다 따로 지정되어 있다. (ctrl + z)
+    // 오름차순 정렬하고 출력하라.
 
-    cout << sizeof(v) << endl;          // 24byte
-    cout << addressof(v) << endl;       // STACK
-    cout << typeid(v).name() << endl;   // class std::vector<int,class std::allocator<int> >
+    vector<string> v;
 
-    cout << "v가 저장할 수 있는 최대 int 개수 - " << v.max_size() << endl; // 4,611,686,018,427,387,903 줜나많이 담아짐.
+    string s;
+    while (cin >> s) {
+        v.push_back(s);
+    }
+   
+    // 오름차순(ascending order) 정렬
+    sort(v.begin(), v.end());
 
-    
+    for (const string& s : v)
+        cout << s << endl;
 
     save("메인.cpp");
 }
