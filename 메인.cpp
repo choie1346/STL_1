@@ -20,31 +20,22 @@ int main()
 //--------
 {
 
-    array<ZString, 5> a{ "1", "22", "333", "4444", "55555"};
-    
-    // iterator로 a를 순회
-    // array<ZString, 5>::iterator i = a.begin();
-    auto i = a.begin(); // 위 코드와 같은 코드
-
-
-    for (auto i = a.begin(); i != a.end(); ++i)
-        cout << (*i) << endl;
+    array<int, 5> a{ 1, 2, 3, 4, 5};
     
     
     // element access - at, operator[], front, back, data
-    관찰 = true;
-    // 4개 다 동일한 결과가 출력됨. - 첫원소에 access
-    a.begin()->show();
-    a[0].show();
-    a.front().show();   // a의 첫원소
-    a.data()->show();   // a의 시작주소의 값을 show
-
-    // 마지막 원소에 access
-    (a.end() - 1)->show();
-    a[a.size()-1].show();
-    a.back().show();
-    (a.data() + a.size() - 1)->show();
-    관찰 = false;
+    // at
+    while (true) {
+        cout << "찾을 원소는? : ";
+        int num;
+        cin >> num;
+        if (num < 0 || num >= a.size())
+            cout << "다시 입력하시오." << endl;
+        else {
+            cout << num << "번 - " << a[num] << endl;
+            // a[num] -> *(a.data() + sizeof(int) * num)과 같다.
+        }
+    }
     
     save("메인.cpp");
 }
