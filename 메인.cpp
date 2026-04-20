@@ -24,16 +24,21 @@ int main()
     
     
     // element access - at, operator[], front, back, data
-    // at
+    
+    // at() - 경계를 검사하고 싶으면 이 함수를 사용하면 된다.
+    // C++은 속도를 최우선으로 하는 언어이다.
+    // 시간 걸리는 at()을 다른 함수로 제공하는 이유이다.
+    // at()은 예외를 던진다.
     while (true) {
         cout << "찾을 원소는? : ";
         int num;
         cin >> num;
-        if (num < 0 || num >= a.size())
-            cout << "다시 입력하시오." << endl;
-        else {
-            cout << num << "번 - " << a[num] << endl;
-            // a[num] -> *(a.data() + sizeof(int) * num)과 같다.
+        
+        try {
+            cout << a.at(num) << endl;
+        }
+        catch (exception& e) {
+            cout << e.what() << endl;       // 표준예외를 출력한다.
         }
     }
     
