@@ -23,23 +23,15 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    vector<ZString> v;
-    
-    // [문제] "메인.cpp"에 있는 모든 문자를 v에 저장하라.
-    // vector로 파일 읽어오기 시험문제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ifstream in{ "메인.cpp" };
-    if (not in) return 0;
-    
-    ZString zs;
-    while (in >> zs)
-        v.push_back(zs);
+    vector<int> v{ 1,2,3,4,5 }; // free-store
 
-    sort(v.begin(), v.end(), [](const ZString& a, const ZString& b) {
-            return a.size() < b.size();
-        });
+    cout << sizeof(v) << endl;          // 24byte
+    cout << addressof(v) << endl;       // STACK
+    cout << typeid(v).name() << endl;   // class std::vector<int,class std::allocator<int> >
 
-    for (const ZString& zs : v)
-        cout << zs << endl;
+    cout << "v가 저장할 수 있는 최대 int 개수 - " << v.max_size() << endl; // 4,611,686,018,427,387,903 줜나많이 담아짐.
+
+    
 
     save("메인.cpp");
 }
