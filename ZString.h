@@ -25,11 +25,15 @@ public:
 	ZString& operator=(ZString&&);
 
 	// 연산자 오버로딩
-	// 인터페이스 함수
+	// 인터페이스 함수 - 나중에 삭제 예성
 	size_t getLen() const;
+
+	// STL 컨테이너가 되려면 다음 함수 정도는 제공해야
+	size_t size() const;
 
 
 	void special(std::string) const;
+	void show() const;
 	
 	friend std::ostream& operator<<(std::ostream& os, const ZString& zs);
 	

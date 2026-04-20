@@ -99,6 +99,11 @@ size_t ZString::getLen() const
 	return len;
 }
 
+size_t ZString::size() const
+{
+	return len;
+}
+
 void ZString::special(std::string 동작) const
 {
 	// 글자수가 10개 이살이라도 10개 까지만 출력
@@ -113,6 +118,12 @@ void ZString::special(std::string 동작) const
 		std::println("[{:7}] {:8} - 객체:{:#016X}, 글자:{:#016X}, 개수:{:<6} 내용:{}",
 			id, 동작, (long long)this, (long long)p.get(), len, 글자);
 	}
+}
+
+void ZString::show() const	// 2026. 4. 20
+{
+	special("show");
+
 }
 
 

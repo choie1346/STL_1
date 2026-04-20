@@ -21,20 +21,18 @@ int main()
 {
 
     array<ZString, 5> a{ "1", "22", "333", "4444", "55555"};
-    관찰 = true;
-    a.fill("2026년 4월 14일");
-    // 임시 객체를 하나 생성해 복사할당함.
-    관찰 = false;
+    
+    // iterator로 a를 순회
+    // array<ZString, 5>::iterator i = a.begin();
+    auto i = a.begin(); // 위 코드와 같은 코드
 
-    for (const ZString& s : a)
-        cout << s << endl;
-
-    cout << "원소 수 - " << a.size() << endl;;
-    cout << "비었니 - " << boolalpha << a.empty() << endl;
-    cout << "최대 수 - " << a.max_size() << endl;
+    for (auto i = a.begin(); i != a.end(); ++i)
+        cout << (*i) << endl;
+    
+    
+    // element access - at, operator[], front, back, data
 
     
-
-
-    // save("메인.cpp");
+    
+    save("메인.cpp");
 }
