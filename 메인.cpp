@@ -9,8 +9,8 @@
 //----------------------------------------------
 #include <iostream>
 #include <vector>
-#include <string>
 #include <algorithm>
+#include <numeric>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -22,21 +22,12 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    // [문제] 키보드에서 입력한 모든  단어를 저장하라.
-    // 입력의 끝은 OS마다 따로 지정되어 있다. (ctrl + z)
-    // 오름차순 정렬하고 출력하라.
+    // [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라.
+    vector<int> v{ istream_iterator<int>{cin}, {} };
 
-    vector<string> v{ istream_iterator<string>{cin}, {} };  // 이렇게 입력받기
+    long long sum = accumulate(v.begin(), v.end(), 0LL);
 
-   
-    // 오름차순(ascending order) 정렬
-    sort(v.begin(), v.end());
-
-    for (const string& s : v)
-        cout << s << endl;
-
-    //for (auto i = v.rbegin(); i != v.rend(); ++i)
-    //    cout << (*i) << endl;
+    cout << sum << endl;
 
 
     save("메인.cpp");
