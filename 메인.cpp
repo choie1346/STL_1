@@ -23,12 +23,14 @@ int main()
 //--------
 {
     vector<ZString> v{ "1", "22", "333" };
-    v.reserve(10);  // 10개의 공간을 마련
+    v.reserve(5);  // 10개의 공간을 마련
 
+    cout << "원소 추가" << endl;
     관찰 = true;
-    v.push_back("4444");
-    v.push_back("55555");
-    v.push_back("666666");
+    v.emplace_back("4444");        // Creator(생성자)가 아님.
+    v.emplace_back( );      // 디폴트 생성자
+    // emplace_back - 남은 메모리에 직접 색칠 (임시 객체를 생성하지 않음)
+    // 생성자 - 만들어진 메모리에 색칠하는 놈?
     관찰 = false;
 
 
