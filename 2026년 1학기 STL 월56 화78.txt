@@ -953,3 +953,251 @@ int main()
 
     save("메인.cpp");
 }
+
+==================================================
+저장한 시간 - 2026-04-20 15:18:50.0289823
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라.
+
+    cout << accumulate(istream_iterator<int>{cin}, {}, 0LL) << endl;
+
+
+    save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-20 15:19:15.3735668
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라.
+
+    cout << "합계 - " << accumulate(istream_iterator<int>{cin}, {}, 0LL) << endl;
+
+
+    save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 13:39:31.2295077
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    vector<ZString> v{ "1", "22", "333", "4444", "55555" };
+
+    cout << endl;
+    cout << "v의 원소에 접근" << endl;
+
+    관찰 = true;
+    for (ZString zs : v)
+        cout << zs << endl;
+    관찰 = false;
+
+
+    save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 13:39:45.3621201
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    vector<ZString> v{ "1", "22", "333", "4444", "55555" };
+
+    cout << endl;
+    cout << "v의 원소에 접근" << endl;
+
+    관찰 = true;
+    for (ZString& zs : v)
+        cout << zs << endl;
+    관찰 = false;
+
+
+    save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 13:42:42.5465082
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    vector<ZString> v{ "1", "22", "333", "4444", "55555" };
+
+    관찰 = true;
+    v.push_back("4444");
+    관찰 = false;
+
+
+    cout << endl;
+    cout << "v의 원소에 접근" << endl;
+
+    관찰 = true;
+    for (ZString& zs : v)
+        cout << zs << endl;
+    관찰 = false;
+
+
+    save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 13:43:09.8321007
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    vector<ZString> v{ "1", "22", "333" };
+
+    관찰 = true;
+    v.push_back("4444");
+    관찰 = false;
+
+
+    cout << endl;
+    cout << "v의 원소에 접근" << endl;
+
+
+    for (ZString& zs : v)
+        cout << zs << endl;
+
+    save("메인.cpp");
+}
