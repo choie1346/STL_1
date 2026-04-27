@@ -23,11 +23,12 @@ int main()
 //--------
 {
     vector<ZString> v{ "1", "22", "333" };
+    v.reserve(10);  // 10개의 공간을 마련
 
     관찰 = true;
     v.push_back("4444");
-    // capacity를 4로 늘리고 그만큼 메모리를 요청함.
-    // 할당한 만큼 새 메모리를 받고 이동 후 전 메모리는 소멸자에서 소멸.
+    v.push_back("55555");
+    v.push_back("666666");
     관찰 = false;
 
 
