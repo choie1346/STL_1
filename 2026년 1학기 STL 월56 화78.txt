@@ -1442,3 +1442,459 @@ int main()
 
     save("메인.cpp");
 }
+
+==================================================
+저장한 시간 - 2026-04-27 14:22:44.4016309
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    save("메인.cpp");
+
+    // 벡터가 메모리를 확장하는 순간을 관찰
+    vector<int> v;
+
+    while (true) {
+        v.push_back(1);
+    
+
+        if (v.size() == v.capacity()) {
+            cout << "원소 개수 - " << v.size() << endl;
+            cout << "확보한 개수 - " << v.capacity() << endl;
+            cout << endl;
+        }
+    }
+
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:28:42.4243478
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    save("메인.cpp");
+
+    // 벡터가 메모리를 확장하는 순간을 관찰
+    vector<int> v;
+
+    while (true) {
+        try {
+            v.push_back(1);
+        }
+        catch (exception& e) {
+            cout << "예외 발생 - " << e.what() << endl;
+            cout << "현재 원소 개수 - " << v.size() << endl;
+            cout << "현재 용량 - " << v.capacity() << endl;
+        }
+    }
+
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:49:45.0322644
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    save("메인.cpp");
+    vector<int> v;
+    v.reserve(26);
+
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (c >= 'a' && c <= 'z')
+            v[c - 'a']++;
+    }
+
+    for (int num : v) {
+        cout << num << endl;
+    }
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:55:53.1998699
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    // size_t alpha[26];
+    array<int, 26> alpha;
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:57:48.8556037
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    // size_t alpha[26];
+    array<int, 26> alpha;
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (c >= 'a' && c <= 'z')
+            ++alpha[c - 'a'];
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:58:34.9942358
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    // size_t alpha[26];
+    array<int, 26> alpha;
+    alpha.fill(0);
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (islower(c))
+            ++alpha[c - 'a'];
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 14:59:45.4423699
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    // size_t alpha[26];
+    array<int, 26> alpha;
+    alpha.fill(0);
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (islower(c))
+            ++alpha[c - 'a'];
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 15:00:52.5398047
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+    // zzzzzzzzzz
+
+    // size_t alpha[26];
+    array<int, 26> alpha;
+    alpha.fill(0);
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (islower(c))
+            ++alpha[c - 'a'];
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
+
+==================================================
+저장한 시간 - 2026-04-27 15:03:09.0998113
+==================================================
+
+//----------------------------------------------
+// 2026 1학기 STL 월56 화 78
+// 중간고사 4월 21일(화)
+//----------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects.
+// Sequence Container
+// - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
+// - vector<T> - Dynamic (size) Array - free-store에 data관리
+//----------------------------------------------
+#include <iostream>
+#include <vector>
+#include <array>
+#include <fstream>
+#include "save.h"
+#include "ZString.h"
+using namespace std;
+
+extern bool 관찰;     //  관찰하려면 true로
+
+
+//--------
+int main()
+//--------
+{
+    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
+    // a - 10
+    // b - 5
+    // 중간 생략
+    // z - 1
+
+    // size_t alpha[26];
+    array<int, 26> alpha{};
+
+    ifstream in{ "메인.cpp" };
+    if (not in) return 2;
+
+    char c;
+    while (in >> c) {
+        if (islower(c))
+            ++alpha[c - 'a'];
+    }
+
+    for (int i = 0; i < 26; ++i) {
+        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
+    }
+
+     save("메인.cpp");
+}
