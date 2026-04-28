@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <list>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -21,11 +22,11 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    vector<ZString> v{ "1", "22", "4444", "55555"};
+    list<ZString> v{ "1", "22", "4444", "55555"};
 
     // [문제] "22"다음에 "333"을 추가하라
     관찰 = true;
-    v.insert(v.begin() + 2, "333"); // 전부 이동시켜 버림. 굉장히 비효율적
+    v.insert(++++v.begin(), "333"); 
     관찰 = false;
 
     for (const ZString& zs : v)
