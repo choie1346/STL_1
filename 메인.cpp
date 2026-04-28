@@ -26,7 +26,7 @@ int main()
 
     // [문제] "22"다음에 "333"을 추가하라
     관찰 = true;
-    v.insert(++++v.begin(), "333"); 
+    v.emplace(++++v.begin(), "333"); 
     관찰 = false;
 
     for (const ZString& zs : v)
