@@ -9,8 +9,7 @@
 //----------------------------------------------
 #include <iostream>
 #include <vector>
-#include <array>
-#include <fstream>
+#include <algorithm>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -22,27 +21,15 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    // [문제] "메인.cpp"에 알파벳 소문자가 몇 개나 있는지 다음과 같이 출력하라.
-    // a - 10
-    // b - 5
-    // 중간 생략
-    // z - 1
+    vector<int> v{ 1,2,3,4,5 };
 
-    // size_t alpha[26];
-    array<int, 26> alpha{};
+    // [문제] v에서 3을 제거하라.
+    // v.size == 4, v.capacity == 5
+    // v.erase(remove(v.begin(), v.end(), 3), v.end());
+    erase(v, 3);
 
-    ifstream in{ "메인.cpp" };
-    if (not in) return 2;
-
-    char c;
-    while (in >> c) {
-        if (islower(c))
-            ++alpha[c - 'a'];
-    }
-
-    for (int i = 0; i < 26; ++i) {
-        cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
-    }
+    for (int num : v)
+        cout << num << endl;
 
      save("메인.cpp");
 }
