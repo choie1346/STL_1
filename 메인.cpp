@@ -21,15 +21,15 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    vector<ZString> v{ "1", "22", "333"};
+    vector<ZString> v{ "1", "22", "4444", "55555"};
 
-    // [문제] v에서 "22"를 제거하라
+    // [문제] "22"다음에 "333"을 추가하라
     관찰 = true;
-    remove(v.begin(), v.end(), "22");
+    v.insert(v.begin() + 2, "333"); // 전부 이동시켜 버림. 굉장히 비효율적
     관찰 = false;
 
-    for (int i = 0; i < v.size(); ++i)
-        cout << v[i] << endl;
+    for (const ZString& zs : v)
+        cout << zs << endl;
 
      save("메인.cpp");
 }
