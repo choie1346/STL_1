@@ -31,6 +31,8 @@ public:
 
 
 	// 연산자 오버로딩
+	// 2026. 04. 28
+	bool operator==(const ZString& rhs) const;
 	// 인터페이스 함수 - 나중에 삭제 예성
 	size_t getLen() const;
 
