@@ -6,6 +6,8 @@
 // Sequence Container
 // - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
 // - vector<T> - Dynamic (size) Array - free-store에 data관리
+//             - 캐시 히트율이 높아 고속 데이터 처리에 유리
+// - list<T> - 아무데서나 원소 추가/삭제 O(1)
 //----------------------------------------------
 #include <iostream>
 #include <vector>
@@ -22,17 +24,18 @@ extern bool 관찰;     //  관찰하려면 true로
 int main()
 //--------
 {
-    list<ZString> v{ "1", "22", "4444", "55555"};
+    save("메인.cpp");
 
-    // [문제] "22"다음에 "333"을 추가하라
-    관찰 = true;
-    auto i = v.begin();
-    advance(i, 2);
-    v.emplace(i, "333");
-    관찰 = false;
+    // [문제] v에서 길이가 2인 ZString을 삭제하라.
+    vector<ZString> v{ "1", "22", "333", "44", "4444", "33", "55", "55555" };
 
-    for (const ZString& zs : v)
-        cout << zs << endl;
+    // 조건식은 predicate을 사용하여 판단한다.
+    //predicate - bool 값을 리턴하는 callable-type
+    erase_if(v, [](const ZString& zs) {
+        if (zs.size() == 2) return true;
+        return false;
+        });
 
-     save("메인.cpp");
+    for (int i = 0; i < v.size(); ++i)
+        cout << v[i] << endl;
 }
