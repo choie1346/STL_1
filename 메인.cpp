@@ -15,6 +15,7 @@
 #include <list>
 #include <fstream>
 #include <chrono>
+#include <ranges>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -32,31 +33,45 @@ int main()
     ifstream in{ "2026년 1학기 STL 월56 화78.txt" };
     if (not in)return 4444;
 
-    list<ZString> words{ istream_iterator<ZString>{in}, {} };
+    vector<ZString> words{ istream_iterator<ZString>{in}, {} };
     
-    words.sort([](const ZString& a, const ZString& b) -> bool {
+    sort(words.begin(), words.end(), [](const ZString& a, const ZString& b) -> bool {
         return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
         });
    
     // 정렬한 이후라면 중복 단어 제거
     // default operator== 로 판정
-    words.unique();
+    auto newEnd = unique(words.begin(), words.end());
+    words.erase(newEnd, words.end());
 
-    for (const ZString& zs : words)
+    for (const ZString& zs : words
+        | views::take(5) )
         cout << zs << endl;
 
-    cout << "중복을 제거하고 남은 단어의 수 - " << words.size();
+    cout << "-----------------------------------------" << endl;
+
+    for (const ZString& zs : words
+        | views::reverse
+        | views::take(5))
+        cout << zs << endl;
+
+    cout << "중복을 제거하고 남은 단어의 수 - " << words.size() << endl;
     
     // [문제] 사용자가 입력한 단어가 리스트에 있는지 찾아본다.
     // 없으면 없다고 출력하라.
     // 있다면 리스트의 몇번째 단어인지 출력하라.
 
-    
+    while (true) {
+        cout << "찾을 단어? : ";
+        ZString word;
+        cin >> word;
 
-    // list 정렬 시간 - 1090us
-    // list는 merge기반 sort
-    
-    // vector 정렬 시간 - 849us
-    // vector는 quick sort
-    // 이동 연산자가 없는 vector - 5105us
+        auto pos = find(words.begin(), words.end(), word);
+
+        if (pos == words.end())
+            cout << "word는 없는 단어입니다." << endl;
+        else {
+            cout << distance(pos, words.begin()) + 1 << "번쨰 단어입니다." << endl;
+        }
+    }
 }
