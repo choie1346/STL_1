@@ -32,27 +32,31 @@ int main()
     ifstream in{ "2026년 1학기 STL 월56 화78.txt" };
     if (not in)return 4444;
 
-    vector<ZString> words{ istream_iterator<ZString>{in}, {} };
-    // sort(words.begin(), words.end());
+    list<ZString> words{ istream_iterator<ZString>{in}, {} };
     
-    auto B = chrono::high_resolution_clock::now();
-    //words.sort([](const ZString& a, const ZString& b) -> bool {
-    //    return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
-    //    });
-    sort(words.begin(), words.end(), [](const ZString& a, const ZString& b) -> bool {
-        return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());  
+    words.sort([](const ZString& a, const ZString& b) -> bool {
+        return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
         });
-    auto E = chrono::high_resolution_clock::now();
-    cout << "list 걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(E - B) << endl;
    
+    // 정렬한 이후라면 중복 단어 제거
+    // default operator== 로 판정
+    words.unique();
 
-    //for (const ZString& zs : words)
-    //    cout << zs << endl;
+    for (const ZString& zs : words)
+        cout << zs << endl;
 
-    cout << "단어의 수 - " << words.size();
+    cout << "중복을 제거하고 남은 단어의 수 - " << words.size();
+    
+    // [문제] 사용자가 입력한 단어가 리스트에 있는지 찾아본다.
+    // 없으면 없다고 출력하라.
+    // 있다면 리스트의 몇번째 단어인지 출력하라.
+
     
 
     // list 정렬 시간 - 1090us
+    // list는 merge기반 sort
+    
     // vector 정렬 시간 - 849us
+    // vector는 quick sort
     // 이동 연산자가 없는 vector - 5105us
 }
