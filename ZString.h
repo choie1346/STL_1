@@ -38,6 +38,7 @@ public:
 
 	// STL 컨테이너가 되려면 다음 함수 정도는 제공해야
 	size_t size() const;
+	char* data() const;			// 2026. 5. 11
 
 
 	void special(std::string) const;

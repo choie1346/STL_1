@@ -13,12 +13,13 @@
 #include <vector>
 #include <algorithm>
 #include <list>
+#include <fstream>
+#include <chrono>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
 
 extern bool 관찰;     //  관찰하려면 true로
-
 
 //--------
 int main()
@@ -26,16 +27,24 @@ int main()
 {
     save("메인.cpp");
 
-    // [문제] v에서 길이가 2인 ZString을 삭제하라.
-    vector<ZString> v{ "1", "22", "333", "44", "4444", "33", "55", "55555" };
+    // [문제] 파일에 있는 단어를 list<ZString>에 저장하라.
+    // 단어를 사전식 오름차순으로 정렬하라.
+    ifstream in{ "2026년 1학기 STL 월56 화78.txt" };
+    if (not in)return 4444;
 
-    // 조건식은 predicate을 사용하여 판단한다.
-    //predicate - bool 값을 리턴하는 callable-type
-    erase_if(v, [](const ZString& zs) {
-        if (zs.size() == 2) return true;
-        return false;
+    list<ZString> words{ istream_iterator<ZString>{in}, {} };
+    // sort(words.begin(), words.end());
+    
+    auto B = chrono::high_resolution_clock::now();
+    words.sort([](const ZString& a, const ZString& b) -> bool {
+        return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());  
         });
+    auto E = chrono::high_resolution_clock::now();
+    cout << "list 걸린 시간 - " << chrono::duration_cast<chrono::milliseconds>(E - B) << endl;
 
-    for (int i = 0; i < v.size(); ++i)
-        cout << v[i] << endl;
+    //for (const ZString& zs : words)
+    //    cout << zs << endl;
+
+    cout << "단어의 수 - " << words.size();
+    
 }

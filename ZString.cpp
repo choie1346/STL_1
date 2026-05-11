@@ -120,6 +120,11 @@ size_t ZString::size() const
 	return len;
 }
 
+char* ZString::data() const
+{
+	return p.get();
+}
+
 void ZString::special(std::string 동작) const
 {
 	// 글자수가 10개 이살이라도 10개 까지만 출력
