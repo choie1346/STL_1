@@ -8,6 +8,7 @@
 // - vector<T> - Dynamic (size) Array - free-store에 data관리
 //             - 캐시 히트율이 높아 고속 데이터 처리에 유리
 // - list<T> - 아무데서나 원소 추가/삭제 O(1)
+// - deque<T> - vector와 list의 장점을 갖는 컨테이너
 //----------------------------------------------
 #include <iostream>
 #include <vector>
@@ -57,21 +58,9 @@ int main()
 
     cout << "중복을 제거하고 남은 단어의 수 - " << words.size() << endl;
     
-    // [문제] 사용자가 입력한 단어가 리스트에 있는지 찾아본다.
-    // 없으면 없다고 출력하라.
-    // 있다면 리스트의 몇번째 단어인지 출력하라.
-
-    while (true) {
-        cout << "찾을 단어? : ";
-        ZString word;
-        cin >> word;
-
-        auto pos = find(words.begin(), words.end(), word);
-
-        if (pos == words.end())
-            cout << "word는 없는 단어입니다." << endl;
-        else {
-            cout << distance(pos, words.begin()) + 1 << "번쨰 단어입니다." << endl;
-        }
-    }
+    // [문제] 길이가 10인 단어를 출력하라.
+    copy_if(words.begin(), words.end(), ostream_iterator<ZString>(cout, "\n"),
+        [](const ZString& zs) {
+            return 10 == zs.size();
+        });
 }
