@@ -32,19 +32,27 @@ int main()
     ifstream in{ "2026년 1학기 STL 월56 화78.txt" };
     if (not in)return 4444;
 
-    list<ZString> words{ istream_iterator<ZString>{in}, {} };
+    vector<ZString> words{ istream_iterator<ZString>{in}, {} };
     // sort(words.begin(), words.end());
     
     auto B = chrono::high_resolution_clock::now();
-    words.sort([](const ZString& a, const ZString& b) -> bool {
+    //words.sort([](const ZString& a, const ZString& b) -> bool {
+    //    return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+    //    });
+    sort(words.begin(), words.end(), [](const ZString& a, const ZString& b) -> bool {
         return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());  
         });
     auto E = chrono::high_resolution_clock::now();
-    cout << "list 걸린 시간 - " << chrono::duration_cast<chrono::milliseconds>(E - B) << endl;
+    cout << "list 걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(E - B) << endl;
+   
 
     //for (const ZString& zs : words)
     //    cout << zs << endl;
 
     cout << "단어의 수 - " << words.size();
     
+
+    // list 정렬 시간 - 1090us
+    // vector 정렬 시간 - 849us
+    // 이동 연산자가 없는 vector - 5105us
 }
