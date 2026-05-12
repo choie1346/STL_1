@@ -9,78 +9,41 @@
 //             - 캐시 히트율이 높아 고속 데이터 처리에 유리
 // - list<T> - 아무데서나 원소 추가/삭제 O(1)
 // - deque<T> - vector와 list의 장점을 갖는 컨테이너
+// - forward_list<T> - 니가 아무리 잘 코딩해도 나보다 효율적인 코드 못 만든다.
+//                  lt is intended that forward_list have zero space or
+//                  time overhead relative to a hand-written C-style singly
+//                  linked list
 //----------------------------------------------
 #include <iostream>
-#include <deque>
-#include <vector>
-#include <list>
+#include <algorithm>
+#include <ranges>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
 
 extern bool 관찰;     //  관찰하려면 true로
 
-class Test {
-    char c[1024 * 1024];
-};
-
 //--------
 int main()
 //--------
 {
+    string zs{ "The quick brown fox jumps over the lazy dog" };
+
+    sort(zs.data(), zs.data() + zs.size());
+ 
+    // [문제] 거꾸로 출력하세요.
+    //char* p = zs.data() + zs.size();
+    //for (int i = 0; i < zs.size(); ++i) {
+    //    cout << *--p;
+    //}
+
+    //for (auto i = zs.rbegin(); i != zs.rend(); ++i)
+    //    cout << *i << ' ';
+    //cout << endl;
+
+    for (char c : zs | views::reverse)
+        cout << c << '-';
+    cout << endl;
+
     save("메인.cpp");
-
-    {
-        vector<Test> v;
-
-        size_t cnt{};
-        while (true) {
-            try {
-                v.emplace_back();
-            }
-            catch (...) {       // ... -> 타원들(ellipses)
-                cout << endl;
-                cout << "벡터 - " << v.size() << endl;
-                break;
-            }
-            if (not(++cnt % 1'000))
-                cout << ".";
-        }
-    }
-
-    {
-        deque<Test> v;
-
-        size_t cnt{};
-        while (true) {
-            try {
-                v.emplace_back();
-            }
-            catch (...) {       // ... -> 타원들(ellipses)
-                cout << endl;
-                cout << "덱 - " << v.size() << endl;
-                break;
-            }
-            if (not(++cnt % 1'000))
-                cout << ".";
-        }
-    }
-
-    {
-        list<Test> v;
-
-        size_t cnt{};
-        while (true) {
-            try {
-                v.emplace_back();
-            }
-            catch (...) {       // ... -> 타원들(ellipses)
-                cout << endl;
-                cout << "리스트 - " << v.size() << endl;
-                break;
-            }
-            if (not(++cnt % 1'000))
-                cout << ".";
-        }
-    }
 }
