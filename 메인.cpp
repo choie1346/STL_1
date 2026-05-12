@@ -17,6 +17,7 @@
 #include <iostream>
 #include <algorithm>
 #include <ranges>
+#include <span>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
@@ -29,19 +30,15 @@ int main()
 {
     string zs{ "The quick brown fox jumps over the lazy dog" };
 
+    // span - C 스타일 배열 등 연속된 메모리 공간을 가진 컨테이너의 요소들을 가볍게 참조(View)할 수 있는 안전한 래퍼(Wrapper) 클래스
+    // 포인터와 크기를 하나로 묶어 관리하며, 디버그 모드에서 경계 검사(Bounds Checking)를 지원하여 안전
+    // 데이터 복사 비용이 전혀 없는 오버헤드 제로(Zero-overhead) 구조
     sort(zs.data(), zs.data() + zs.size());
+
+    span<char> s{ zs.data(), zs.size() };
  
     // [문제] 거꾸로 출력하세요.
-    //char* p = zs.data() + zs.size();
-    //for (int i = 0; i < zs.size(); ++i) {
-    //    cout << *--p;
-    //}
-
-    //for (auto i = zs.rbegin(); i != zs.rend(); ++i)
-    //    cout << *i << ' ';
-    //cout << endl;
-
-    for (char c : zs | views::reverse)
+    for (char c : s | views::reverse)
         cout << c << '-';
     cout << endl;
 
