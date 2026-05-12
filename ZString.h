@@ -20,7 +20,7 @@ public:
 	ZString(const ZString&);
 	ZString& operator=(const ZString&);
 
-	// 이동 - C++11부터 지원되는 move semantics
+	// 이동
 	ZString(ZString&&) noexcept;		// 2026. 4. 20 - move에서 예외를 던지지 않는다.
 	ZString& operator=(ZString&&) noexcept;
 	// move에서 예외를 던지면 컴파일러는 move대신 copy를 사용하게 됨.
@@ -29,10 +29,13 @@ public:
 	// noexcept -> 예외를 던지면 프로그램을 종료.
 
 
-
-	// 연산자 오버로딩
-	// 2026. 04. 28
+	// 2026. 04. 28 - 연산자 오버로딩
 	bool operator==(const ZString& rhs) const;
+
+	// 2026. 05. 12 - 반복자 인터페이스 추가
+	char* begin() const;
+	char* end() const;
+
 	// 인터페이스 함수 - 나중에 삭제 예성
 	size_t getLen() const;
 
@@ -47,7 +50,7 @@ public:
 	
 	friend std::ostream& operator<<(std::ostream& os, const ZString& zs);
 	
-	// 파일에서 읽어오려고 만듦 - 20260413
+	// 2026. 04. 13
 	friend std::istream& operator>>(std::istream& is, ZString& zs);
 
 	

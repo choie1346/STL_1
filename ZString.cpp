@@ -110,6 +110,16 @@ bool ZString::operator==(const ZString& rhs) const
 	// return true;
 }
 
+char* ZString::begin() const
+{
+	return p.get();
+}
+
+char* ZString::end() const
+{
+	return p.get() + len;
+}
+
 size_t ZString::getLen() const
 {
 	return len;
