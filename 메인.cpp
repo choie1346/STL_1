@@ -12,11 +12,17 @@
 //----------------------------------------------
 #include <iostream>
 #include <deque>
+#include <vector>
+#include <list>
 #include "save.h"
 #include "ZString.h"
 using namespace std;
 
 extern bool 관찰;     //  관찰하려면 true로
+
+class Test {
+    char c[1024 * 1024];
+};
 
 //--------
 int main()
@@ -24,15 +30,57 @@ int main()
 {
     save("메인.cpp");
 
-    관찰 = true;
-    deque<ZString> d{ "1", "22","333","4444","55555" };
-    
-    //for (const ZString& zs : d)
-    //    zs.show();
+    {
+        vector<Test> v;
 
-    for (int i = 0; i < d.size(); ++i)
-        d[i].show();
-    관찰 = false;
+        size_t cnt{};
+        while (true) {
+            try {
+                v.emplace_back();
+            }
+            catch (...) {       // ... -> 타원들(ellipses)
+                cout << endl;
+                cout << "벡터 - " << v.size() << endl;
+                break;
+            }
+            if (not(++cnt % 1'000))
+                cout << ".";
+        }
+    }
 
+    {
+        deque<Test> v;
 
+        size_t cnt{};
+        while (true) {
+            try {
+                v.emplace_back();
+            }
+            catch (...) {       // ... -> 타원들(ellipses)
+                cout << endl;
+                cout << "덱 - " << v.size() << endl;
+                break;
+            }
+            if (not(++cnt % 1'000))
+                cout << ".";
+        }
+    }
+
+    {
+        list<Test> v;
+
+        size_t cnt{};
+        while (true) {
+            try {
+                v.emplace_back();
+            }
+            catch (...) {       // ... -> 타원들(ellipses)
+                cout << endl;
+                cout << "리스트 - " << v.size() << endl;
+                break;
+            }
+            if (not(++cnt % 1'000))
+                cout << ".";
+        }
+    }
 }
