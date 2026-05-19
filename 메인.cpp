@@ -42,13 +42,9 @@ int main()
 {
 	ZString zs{ "sphinx of black quartz judge my vow" };
 
-	for (auto i = zs.begin(); i != zs.end(); ++i)
-		cout << *i;
-	cout << endl;
-
-	for (auto i = zs.rbegin(); i != zs.rend(); ++i)
-		cout << *i;
-	cout << endl;
+	// [문제] zs를 오름차순으로 정렬하시오.
+	sort(zs.begin(), zs.end());
+	cout << zs << endl;
 
 	save("메인.cpp");
 }

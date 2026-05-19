@@ -11,14 +11,36 @@
 // 2026. 05. 19
 class ZString_Iterator {
 public:
+	// 표준 반복자가 되려면 다음 5가지 타입을 제공해야 한다.
+	using iterator_category = std::random_access_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using value_type = char;
+	using pointer = char*;
+	using reference = char&;
+
+public:
 	ZString_Iterator() = default;
 	ZString_Iterator(char* p) : p{ p } { }
 
-	void operator++() {
-		++p;
+	// void로 놓으면 안된다.
+	ZString_Iterator operator++() {
+		return ++p;
+	}
+	ZString_Iterator operator--() {
+		return --p;
 	}
 	char operator*() const {
 		return *p;
+	}
+	char& operator*() {
+		return *p;
+	}
+
+	difference_type operator-(const ZString_Iterator& rhs) const {
+		return p - rhs.p;
+	}
+	ZString_Iterator operator+(difference_type n) const {
+		 return p + n;
 	}
 
 	auto operator<=>(const ZString_Iterator& rhs) const = default;
