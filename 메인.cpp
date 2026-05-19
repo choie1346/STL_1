@@ -14,6 +14,7 @@
 #include <string>
 #include <algorithm>
 #include <ranges>
+#include <vector>
 #include "ZString.h"
 #include "save.h"
 
@@ -40,12 +41,13 @@ int main()
 //----------
 {
 	ZString zs{ "phinx of black quartz judge my vow" };
+	// vector<char> zs{ s.begin(), s.end() };
 
 	sort(zs.begin(), zs.end());
 
 	// [문제] zs를 거꾸로 출력하라.
-	for (auto i = zs.rbegin(); i != zs.rend(); --i)
-		cout << *(i - 1) << ' ';
+	for (auto i = zs.rbegin(); i != zs.rend(); ++i)
+		cout << *i;
 	cout << endl;
 
 	cout << endl;

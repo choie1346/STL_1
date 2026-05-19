@@ -120,12 +120,14 @@ char* ZString::end() const
 	return p.get() + len;
 }
 
-char* ZString::rbegin() const
+// 2026. 05. 18 - 역방향 추가
+// 2026. 05. 19 - 역방향반복자는 클래스로 코딩해야 한다.
+ZString_Reverse_Iterator ZString::rbegin() const
 {
 	return p.get() + len;
 }
 
-char* ZString::rend() const
+ZString_Reverse_Iterator ZString::rend() const
 {
 	return p.get();
 }
