@@ -14,11 +14,16 @@ public:
 	ZString_Reverse_Iterator() = default;
 	ZString_Reverse_Iterator(char* p) :p{ p } { }
 
-	void operator++() { --p; }
+	void operator++() { 
+		--p;
+	}
 	char operator*() const { 
 		return *(p - 1);
 	}
 
+	// 관계연산자는 6가지가 있음.
+	// 그런데 우주선 연산자 한 개만 코딩해서 6개를 자동으로 만들 수 있다. - auto로 정의해야함.
+	auto operator<=>(const ZString_Reverse_Iterator& rhs) const = default;
 
 private:
 	char* p;
