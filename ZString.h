@@ -9,10 +9,29 @@
 #include <memory>
 
 // 2026. 05. 19
+class ZString_Iterator {
+public:
+	ZString_Iterator() = default;
+	ZString_Iterator(char* p) : p{ p } { }
+
+	void operator++() {
+		++p;
+	}
+	char operator*() const {
+		return *p;
+	}
+
+	auto operator<=>(const ZString_Iterator& rhs) const = default;
+
+private:
+	char* p;
+};
+
+// 2026. 05. 19
 class ZString_Reverse_Iterator {
 public:
 	ZString_Reverse_Iterator() = default;
-	ZString_Reverse_Iterator(char* p) :p{ p } { }
+	ZString_Reverse_Iterator(char* p) : p{ p } { }
 
 	void operator++() { 
 		--p;
@@ -52,9 +71,10 @@ public:
 	// 2026. 04. 28 - 연산자 오버로딩
 	bool operator==(const ZString& rhs) const;
 
-	// 2026. 05. 12 - 반복자 인터페이스 추가
-	char* begin() const;
-	char* end() const;
+	// 2026. 05. 12 - 반복자 인터페이스
+	// 2026. 05. 19 - begin이 되돌려줘야할 타입은 클래스여야 한다.
+	ZString_Iterator begin() const;
+	ZString_Iterator end() const;
 
 	// 2026. 05. 18 - 역방향 반복자 추가
 	// 2026. 05. 19 - 역방향 반복자는 반드시 클래스로 코딩한다.

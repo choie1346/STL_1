@@ -40,16 +40,14 @@ void f(반복자 iter)
 int main()
 //----------
 {
-	ZString zs{ "phinx of black quartz judge my vow" };
-	// vector<char> zs{ s.begin(), s.end() };
+	ZString zs{ "sphinx of black quartz judge my vow" };
 
-	sort(zs.begin(), zs.end());
-
-	// [문제] zs를 거꾸로 출력하라.
-	for (auto i = zs.rbegin(); i != zs.rend(); ++i)
+	for (auto i = zs.begin(); i != zs.end(); ++i)
 		cout << *i;
 	cout << endl;
 
+	for (auto i = zs.rbegin(); i != zs.rend(); ++i)
+		cout << *i;
 	cout << endl;
 
 	save("메인.cpp");

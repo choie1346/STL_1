@@ -110,12 +110,14 @@ bool ZString::operator==(const ZString& rhs) const
 	// return true;
 }
 
-char* ZString::begin() const
+// 2026. 05. 12 - 반복자 인터페이스
+// 2026. 05. 19 - begin이 되돌려줘야할 타입은 클래스여야 한다.
+ZString_Iterator ZString::begin() const
 {
 	return p.get();
 }
 
-char* ZString::end() const
+ZString_Iterator ZString::end() const
 {
 	return p.get() + len;
 }
