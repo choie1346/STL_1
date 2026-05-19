@@ -35,6 +35,8 @@ public:
 	// 2026. 05. 12 - 반복자 인터페이스 추가
 	char* begin() const;
 	char* end() const;
+	char* rbegin() const;
+	char* rend() const;
 
 	// 인터페이스 함수 - 나중에 삭제 예성
 	size_t getLen() const;
