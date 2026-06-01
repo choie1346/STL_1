@@ -52,11 +52,9 @@ int main()
 		ZString word;
 		cin >> word;
 
-		auto p = find(s.begin(), s.end(), word);
-
-		if (p != s.end())
-			cout << distance(s.begin(), p) + 1 << "번째 단어" << endl;
+		if (s.contains(word))
+			cout << "있다." << endl;
 		else
-			cout << "단어가 없다." << endl;
+			cout << "없다." << endl;
 	}
 }
