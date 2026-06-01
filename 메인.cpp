@@ -15,6 +15,7 @@
 #include <set>
 #include <fstream>
 #include <algorithm>
+#include <vector>
 #include "ZString.h"
 #include "save.h"
 using namespace std;
@@ -47,14 +48,19 @@ int main()
 	// 있다면 몇번째 단어인지
 	// 없다면 없는 단어라고 출력
 
+	// vector에 정렬된 데이터를 복사하였다.
+	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
+	vector<ZString> v;
+	v.reserve(s.size());
+
 	while (true) {
 		cout << "찾을 단어?: ";
 		ZString word;
 		cin >> word;
 
-		if (s.contains(word))
-			cout << "있다." << endl;
+		if (binary_search(v.begin(), v.end(), word))
+			cout << "있는 단어" << endl;
 		else
-			cout << "없다." << endl;
+			cout << "없는 단어" << endl;
 	}
 }
