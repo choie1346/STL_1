@@ -1,13 +1,14 @@
 //-------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78          5월 18일        (11주 1일)
+// 2026년 1학기 STL 월56 화78          6월 1일        (12주 1일)
 //--------------------------------------------------------------
 // 컴파일 환경 - Release / x64
 // VS 버전 - 17.14.27
 // 프로젝트 설정 - C++ 언어 표준 - /std:c++latest
 //				   C/C++ 언어 - SDL 검사 - 아니요(/sdl-)
 //--------------------------------------------------------------
-// STL 반복자 - Iterators are a generalization of pointers that allow 
-// a C++ program to work with different data structures in a uniform manner.
+// STL Associative Container
+// - set/multiset
+// - map/multimap
 //--------------------------------------------------------------
 
 #include <iostream>
@@ -23,28 +24,20 @@ using namespace std;
 
 extern bool 관찰;
 
-// 반복자란 무엇인가? 
-// 이걸 사용하는 이유는?
-// 반복자의 종류를 구분한 이유
-// ZString이 표준 반복자를 제공하려면?
-
-template<class 반복자>
-void f(반복자 iter)
-{
-	cout << typeid(iterator_traits<반복자>::iterator_category).name() << endl;
+template<class 반복자, class 출력반복자>
+void my_copy(반복자 b, 반복자 e, 출력반복자 o) {
+    while (b not_eq e) {
+        *o = *b;
+        ++b;
+        ++o;
+    }
 }
-
-
 
 //----------
 int main()
 //----------
 {
-	ZString zs{ "sphinx of black quartz judge my vow" };
+	ZString zs{ "sphinx of black quartz 3 judge my 6 vow" };
 
-	// [문제] zs를 오름차순으로 정렬하시오.
-	sort(zs.begin(), zs.end());
-	cout << zs << endl;
-
-	save("메인.cpp");
+	my_copy(zs.begin(), zs.end(), ostream_iterator<char>{cout, " "});
 }
