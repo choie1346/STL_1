@@ -31,10 +31,7 @@ int main()
 	ifstream in{ "이상한 나라의 앨리스.txt" };
 	if (not in) return 4444;
 
-	// set<ZString>에 in의 단어를 저장하라.
-	// 정렬 순서는 ZString의 id 기준 오름차순이다.
-
-	set<ZString> s{ istream_iterator<ZString>{in}, {} };
+	multiset<ZString> s{ istream_iterator<ZString>{in}, {} };
 
 	for (const ZString& zs : s)
 		cout << zs << "  ";
@@ -44,23 +41,18 @@ int main()
 
 	save("메인.cpp");
 
-	// [문제] 단어를 입력 받아
-	// 있다면 몇번째 단어인지
-	// 없다면 없는 단어라고 출력
-
-	// vector에 정렬된 데이터를 복사하였다.
-	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
-	vector<ZString> v;
-	v.reserve(s.size());
+	// [문제] 단어를 입력받아 있다면 몇 개인지
+	// 없다면 없다고 출력하라.
 
 	while (true) {
 		cout << "찾을 단어?: ";
 		ZString word;
 		cin >> word;
 
-		if (binary_search(v.begin(), v.end(), word))
-			cout << "있는 단어" << endl;
-		else
-			cout << "없는 단어" << endl;
+		auto [하한, 상한] = s.equal_range(word);	// 하한과 상한을 pair로 리턴함.
+		if (하한 == 상한) cout << "없는 단어입니다." << endl;
+		else 
+			cout << distance(하한, 상한) << "개 있습니다." << endl;
+		
 	}
 }
