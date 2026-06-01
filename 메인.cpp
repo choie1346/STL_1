@@ -14,6 +14,7 @@
 #include <iostream>
 #include <set>
 #include <fstream>
+#include <algorithm>
 #include "ZString.h"
 #include "save.h"
 using namespace std;
@@ -25,26 +26,37 @@ extern bool 관찰;
 int main()
 //----------
 {
-	// "메인.cpp"의 단어를 set<ZString>에 저장하라.
-	ifstream in{ "메인.cpp" };
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	ifstream in{ "이상한 나라의 앨리스.txt" };
 	if (not in) return 4444;
 
 	// set<ZString>에 in의 단어를 저장하라.
 	// 정렬 순서는 ZString의 id 기준 오름차순이다.
 
-	class Dog {
-	public:
-		bool operator()(const ZString& a, const ZString& b) const {
-			return a.getId() < b.getId();
-		}
-	};
+	set<ZString> s{ istream_iterator<ZString>{in}, {} };
 
-	set<ZString, Dog> s{ istream_iterator<ZString>{in}, {} };
-
-	관찰 = true;
 	for (const ZString& zs : s)
-		zs.show();
-	관찰 = false;
+		cout << zs << "  ";
+	cout << endl;
+
+	cout << "단어 개수 - " << s.size() << endl;
 
 	save("메인.cpp");
+
+	// [문제] 단어를 입력 받아
+	// 있다면 몇번째 단어인지
+	// 없다면 없는 단어라고 출력
+
+	while (true) {
+		cout << "찾을 단어?: ";
+		ZString word;
+		cin >> word;
+
+		auto p = find(s.begin(), s.end(), word);
+
+		if (p != s.end())
+			cout << distance(s.begin(), p) + 1 << "번째 단어" << endl;
+		else
+			cout << "단어가 없다." << endl;
+	}
 }

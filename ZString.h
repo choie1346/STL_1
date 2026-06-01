@@ -72,6 +72,9 @@ private:
 
 class ZString {
 public:
+	using iterator = ZString_Iterator;
+	using reverse_iterator = ZString_Reverse_Iterator;
+
 	ZString();
 	~ZString();
 
