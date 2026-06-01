@@ -110,6 +110,14 @@ bool ZString::operator==(const ZString& rhs) const
 	// return true;
 }
 
+// 2026. 06. 01
+// set의 기본정렬 연산자 <
+// 사전식 정렬되도록 코딩
+bool ZString::operator<(const ZString& rhs) const
+{
+	return std::lexicographical_compare(begin(), end(), rhs.begin(), rhs.end());
+}
+
 // 2026. 05. 12 - 반복자 인터페이스
 // 2026. 05. 19 - begin이 되돌려줘야할 타입은 클래스여야 한다.
 ZString_Iterator ZString::begin() const
