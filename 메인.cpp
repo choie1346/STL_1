@@ -69,5 +69,25 @@ int main()
         // 10000중에서 3957개 찾음
         // 걸린 시간 - 16493986us
     }
+
+    {   // 셋에서 찾기
+        set<int> s{ num.begin(), num.end() };
+
+        cout << "셋에서 찾는 중";
+        size_t cnt{};
+
+        auto start = chrono::high_resolution_clock::now();
+        for (int num : fnum) {
+            if (s.contains(num))
+                ++cnt;
+        }
+        auto stop = chrono::high_resolution_clock::now();
+        cout << endl;
+        cout << FNUM << "중에서 " << cnt << "개 찾음" << endl;
+        cout << "걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(stop - start) << endl;
+
+        // 10000중에서 3957개 찾음
+        // 걸린 시간 - 14660us
+    }
     
 }
