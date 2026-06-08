@@ -116,5 +116,33 @@ int main()
 
 		// O(1)에서 찾기 때문에 개수가 많아져도 시간은 거의 늘어나지 않음
     }
+
+    {   // 정렬된 벡터에서 찾기 - fat_set
+        cout << endl;
+        vector<int> v{ num.begin(), num.end() };
+
+        cout << "벡터 정렬하는 중";
+		sort(v.begin(), v.end());
+        cout << endl;
+
+        cout << "정렬된 벡터에서 찾는 중";
+        size_t cnt{};
+
+        auto start = chrono::high_resolution_clock::now();
+        for (int num : fnum) {
+            if (binary_search(v.begin(), v.end(), num))
+                ++cnt;
+        }
+        auto stop = chrono::high_resolution_clock::now();
+        cout << endl;
+        cout << FNUM << "중에서 " << cnt << "개 찾음" << endl;
+        cout << "걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(stop - start) << endl;
+
+        // 10000중에서 3957개 찾음
+        // 걸린 시간 - 3529us
+    }
     
+    // 컨테이너 찾기 속도
+    // 벡터 > 셋 > 정렬된 벡터 > 언오더드 셋
+
 }
