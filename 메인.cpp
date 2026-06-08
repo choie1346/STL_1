@@ -30,13 +30,13 @@ using namespace std;
 extern bool 관찰;
 
 const size_t NUM{ 10'000'000 };
-const size_t FNUM{ 100'000 };
+const size_t FNUM{ 10'000 };
 
 array<int, NUM> num;
 array<int, FNUM> fnum;
 
 default_random_engine dre;
-uniform_int_distribution uid{ 1, 10'000'000 };
+uniform_int_distribution uid{ 1, 20'000'000 };
 
 //----------
 int main()
@@ -53,12 +53,21 @@ int main()
     {   // 벡터에서 찾기
 		vector<int> v{ num.begin(), num.end() };
 
+        cout << "벡터에서 찾는 중";
         size_t cnt{};
+
+        auto start = chrono::high_resolution_clock::now();
         for (int num : fnum) {
-            if (find(v.begin(), v.end(), num) != v.end()) 
+            if (find(v.begin(), v.end(), num) != v.end())
                 ++cnt;
         }
+        auto stop = chrono::high_resolution_clock::now();
+        cout << endl;
         cout << FNUM << "중에서 " << cnt << "개 찾음" << endl;
+        cout << "걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(stop - start) << endl;
+
+        // 10000중에서 3957개 찾음
+        // 걸린 시간 - 16493986us
     }
     
 }
