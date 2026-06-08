@@ -1,58 +1,64 @@
 //-------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78          6월 1일        (12주 1일)
+// 2026년 1학기 STL 월56 화78          6월 2일        (13주 1일)
+// 6/22 시험(초 어려운 문제)
 //--------------------------------------------------------------
 // 컴파일 환경 - Release / x64
 // VS 버전 - 17.14.27
 // 프로젝트 설정 - C++ 언어 표준 - /std:c++latest
 //				   C/C++ 언어 - SDL 검사 - 아니요(/sdl-)
 //--------------------------------------------------------------
-// STL Associative Container
-// - set/multiset - key-value, key == value
-// - map/multimap - key-value, key값을 정렬기준으로 하여 O(LogN) value를 찾는다.
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
 //--------------------------------------------------------------
-
 #include <iostream>
-#include <set>
-#include <fstream>
-#include <algorithm>
+#include <array>
 #include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
 #include "ZString.h"
 #include "save.h"
+
 using namespace std;
 
 extern bool 관찰;
 
+const size_t NUM{ 10'000'000 };
+const size_t FNUM{ 100'000 };
+
+array<int, NUM> num;
+array<int, FNUM> fnum;
+
+default_random_engine dre;
+uniform_int_distribution uid{ 1, 10'000'000 };
 
 //----------
 int main()
 //----------
 {
-	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
-	ifstream in{ "이상한 나라의 앨리스.txt" };
-	if (not in) return 4444;
+    save("메인.cpp");
 
-	multiset<ZString> s{ istream_iterator<ZString>{in}, {} };
+    for (int& num : num)
+        num = uid(dre);
 
-	for (const ZString& zs : s)
-		cout << zs << "  ";
-	cout << endl;
+    for (int& num : fnum)
+        num = uid(dre);
 
-	cout << "단어 개수 - " << s.size() << endl;
+    {   // 벡터에서 찾기
+		vector<int> v{ num.begin(), num.end() };
 
-	save("메인.cpp");
-
-	// [문제] 단어를 입력받아 있다면 몇 개인지
-	// 없다면 없다고 출력하라.
-
-	while (true) {
-		cout << "찾을 단어?: ";
-		ZString word;
-		cin >> word;
-
-		auto [하한, 상한] = s.equal_range(word);	// 하한과 상한을 pair로 리턴함.
-		if (하한 == 상한) cout << "없는 단어입니다." << endl;
-		else 
-			cout << distance(하한, 상한) << "개 있습니다." << endl;
-		
-	}
+        size_t cnt{};
+        for (int num : fnum) {
+            if (find(v.begin(), v.end(), num) != v.end()) 
+                ++cnt;
+        }
+        cout << FNUM << "중에서 " << cnt << "개 찾음" << endl;
+    }
+    
 }
