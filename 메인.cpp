@@ -51,6 +51,7 @@ int main()
         num = uid(dre);
 
     {   // 벡터에서 찾기
+        cout << endl;
 		vector<int> v{ num.begin(), num.end() };
 
         cout << "벡터에서 찾는 중";
@@ -71,7 +72,8 @@ int main()
     }
 
     {   // 셋에서 찾기
-        set<int> s{ num.begin(), num.end() };
+        cout << endl;
+        multiset<int> s{ num.begin(), num.end() };
 
         cout << "셋에서 찾는 중";
         size_t cnt{};
@@ -87,7 +89,32 @@ int main()
         cout << "걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(stop - start) << endl;
 
         // 10000중에서 3957개 찾음
-        // 걸린 시간 - 14660us
+        // 걸린 시간 - 15531us
+
+		// 처음에 정렬하기 때문에 "셋에서 찾는 중"이 출력되기까지 시간이 오래 걸림
+    }
+
+    {   // 언오더드 셋에서 찾기
+        cout << endl;
+        unordered_multiset<int> us{ num.begin(), num.end() };
+
+        cout << "언오더드 셋에서 찾는 중";
+        size_t cnt{};
+
+        auto start = chrono::high_resolution_clock::now();
+        for (int num : fnum) {
+            if (us.contains(num))
+                ++cnt;
+        }
+        auto stop = chrono::high_resolution_clock::now();
+        cout << endl;
+        cout << FNUM << "중에서 " << cnt << "개 찾음" << endl;
+        cout << "걸린 시간 - " << chrono::duration_cast<chrono::microseconds>(stop - start) << endl;
+
+        // 10000중에서 3957개 찾음
+        // 걸린 시간 - 433us
+
+		// O(1)에서 찾기 때문에 개수가 많아져도 시간은 거의 늘어나지 않음
     }
     
 }
